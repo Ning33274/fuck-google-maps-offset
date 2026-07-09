@@ -13,7 +13,6 @@ function replaceAll(input, from, to) {
 }
 
 let url = $request.url;
-let headers = $request.headers;
 
 try {
   let u = new URL(url);
@@ -25,20 +24,15 @@ try {
   ) {
     let raw = atob(b64urlToB64(u.searchParams.get("bpb")));
 
-    raw = replaceAll(raw, "zh-Hans-TW", "zh-Hans-CN");
-    raw = replaceAll(raw, "HK", "CN");
+    raw = replaceAll(raw, "\x1a\x02HK", "\x1a\x02CN");
 
     u.searchParams.set("bpb", b64ToB64url(btoa(raw)));
-
-    headers["Accept-Language"] = "zh-CN,zh-Hans;q=0.9,en;q=0.8";
-
     url = u.toString();
   }
 } catch (e) {
-  console.log("Google Maps iOS CN BPB error: " + e);
+  console.log("Google Maps iOS CN BPB region-only error: " + e);
 }
 
 $done({
-  url,
-  headers
+  url
 });
