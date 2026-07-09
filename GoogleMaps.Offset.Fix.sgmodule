@@ -1,0 +1,8 @@
+#!name=Google Maps 卫星地图偏移修复
+#!desc=Fuck GCJ-02
+
+[MITM]
+hostname = %APPEND% mobilemaps.googleapis.com
+
+[Script]
+Google Maps iOS CN BPB = type=http-request,pattern=^https:\/\/mobilemaps\.googleapis\.com\/maps\/vt\/proto\?,requires-body=0,script-path=https://raw.githubusercontent.com/Ning33274/fuck-google-maps-offset/refs/heads/main/google-maps-ios-cn-bpb.js
